@@ -1,0 +1,9 @@
+Window:
+	viewport: 384x216
+	size: 1280x720
+	Stretch:
+		mode: viewport
+		aspect: keep_height
+
+Rendering:
+	filter: nearest

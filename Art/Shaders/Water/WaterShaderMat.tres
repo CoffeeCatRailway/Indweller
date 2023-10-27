@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://0s4sj3s7de40"]
+
+[ext_resource type="Shader" uid="uid://bwrmtk2phbib3" path="res://Art/Shaders/Water/WaterShaderVisual.tres" id="1_o725y"]
+
+[resource]
+shader = ExtResource("1_o725y")
