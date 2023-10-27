@@ -1,7 +1,0 @@
-res://Scenes/world.tscn
-res://Art/Shaders/paletteSwapper.gdshader
-res://Scenes/tileset.tres
-res://Art/Shaders/Water/WaterShader.gdshader
-res://Art/Shaders/Water/WaterShaderVisual.tres
-res://Characters/player.tscn
-res://Characters/slime.tscn
