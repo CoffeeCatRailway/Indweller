@@ -9,14 +9,6 @@ uniform sampler2D screenTex : hint_screen_texture, filter_nearest, repeat_disabl
 // ignore alpha when compareing
 // Based on https://github.com/KoBeWi/Godot-Palette-Swap-Shader/blob/master/PaletteSwap.gdshader
 
-vec3 srgb_to_linear(vec3 c){
-  return c * (c * (c * 0.305306011 + 0.682171111) + 0.012522878);
-}
-
-vec3 linear_to_srgb(vec3 c){
-  return max(1.055 * pow(c, vec3(0.416666667)) - 0.055, 0.0);
-}
-
 void fragment()
 {
 	vec4 spriteColor = texture(TEXTURE, UV);

@@ -10,35 +10,35 @@
 [ext_resource type="Shader" path="res://Art/Shaders/paletteSwapper.gdshader" id="13_bd1t2"]
 [ext_resource type="Texture2D" uid="uid://tqm8e27otjdm" path="res://Art/Characters/slime_palettes.png" id="14_a5tke"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gnjje"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gyojv"]
 resource_local_to_scene = true
 shader = ExtResource("13_bd1t2")
 shader_parameter/paletteIdx = 0
 shader_parameter/useScreen = false
 shader_parameter/palette = ExtResource("13_1jaf7")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8hpu3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kuedy"]
 resource_local_to_scene = true
 shader = ExtResource("13_bd1t2")
 shader_parameter/paletteIdx = 0
 shader_parameter/useScreen = false
 shader_parameter/palette = ExtResource("14_a5tke")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_32w0s"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwbvn"]
 resource_local_to_scene = true
 shader = ExtResource("13_bd1t2")
 shader_parameter/paletteIdx = 1
 shader_parameter/useScreen = false
 shader_parameter/palette = ExtResource("14_a5tke")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n5txq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sf8hq"]
 resource_local_to_scene = true
 shader = ExtResource("13_bd1t2")
 shader_parameter/paletteIdx = 2
 shader_parameter/useScreen = false
 shader_parameter/palette = ExtResource("14_a5tke")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wv6r7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ukbv7"]
 resource_local_to_scene = true
 shader = ExtResource("13_bd1t2")
 shader_parameter/paletteIdx = 3
@@ -115,24 +115,24 @@ followTarget = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("1_kod7u")]
 z_index = 0
-material = SubResource("ShaderMaterial_gnjje")
+material = SubResource("ShaderMaterial_gyojv")
 position = Vector2(58, 32)
 slide_on_ceiling = false
 
 [node name="Slime" parent="." instance=ExtResource("5_835je")]
-material = SubResource("ShaderMaterial_8hpu3")
+material = SubResource("ShaderMaterial_kuedy")
 position = Vector2(123, 108)
 
 [node name="Slime2" parent="." instance=ExtResource("5_835je")]
-material = SubResource("ShaderMaterial_32w0s")
+material = SubResource("ShaderMaterial_dwbvn")
 position = Vector2(157, 150)
 
 [node name="Slime3" parent="." instance=ExtResource("5_835je")]
-material = SubResource("ShaderMaterial_n5txq")
+material = SubResource("ShaderMaterial_sf8hq")
 position = Vector2(131, 169)
 
 [node name="Slime4" parent="." instance=ExtResource("5_835je")]
-material = SubResource("ShaderMaterial_wv6r7")
+material = SubResource("ShaderMaterial_ukbv7")
 position = Vector2(159, 198)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
