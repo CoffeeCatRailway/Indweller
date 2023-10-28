@@ -33,6 +33,13 @@ window/stretch/mode="viewport"
 
 project/assembly_name="Learning-Godot"
 
+[importer_defaults]
+
+texture={
+"detect_3d/compress_to": 0,
+"roughness/mode": 1
+}
+
 [input]
 
 left={
@@ -69,3 +76,4 @@ down={
 
 textures/canvas_textures/default_texture_filter=0
 textures/lossless_compression/force_png=true
+textures/default_filters/anisotropic_filtering_level=0
