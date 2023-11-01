@@ -21,6 +21,10 @@ boot_splash/use_filter=false
 config/icon="res://Art/icon.png"
 boot_splash/minimum_display_time=2000
 
+[autoload]
+
+CoroutineRunner="*res://UnityCoroutinesInGodot/CoroutineRunner.tscn"
+
 [display]
 
 window/size/viewport_width=1280
