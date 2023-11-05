@@ -7,3 +7,10 @@ Window:
 
 Rendering:
 	filter: nearest
+
+
+Sudo code:
+	var layer1Tex = VisLayer1;
+	var layer2Tex = VisLayer2;
+	shader.SetUniform("tex", layer1Tex);
+	shader.SetUniform("texShadows", layer2Tex);
