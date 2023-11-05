@@ -24,6 +24,7 @@ boot_splash/minimum_display_time=2000
 [autoload]
 
 CoroutineRunner="*res://UnityCoroutinesInGodot/CoroutineRunner.tscn"
+BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 
 [display]
 
@@ -36,6 +37,10 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="Learning-Godot"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg")
 
 [importer_defaults]
 
