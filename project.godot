@@ -11,12 +11,19 @@ config_version=5
 [application]
 
 config/name="Indweller"
+run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
+
+[display]
+
+window/size/viewport_width=1360
+window/size/viewport_height=720
+window/stretch/mode="viewport"
 
 [dotnet]
 
@@ -25,3 +32,7 @@ project/assembly_name="Indweller"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg", "res://addons/gaea/plugin.cfg")
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
