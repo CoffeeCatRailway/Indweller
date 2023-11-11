@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://4qlxyrxdaat"]
+
+[ext_resource type="Texture2D" uid="uid://clsg8m5n05yyr" path="res://icon.svg" id="1_iv0aj"]
+[ext_resource type="Script" path="res://test_actor.gd" id="2_v0cx8"]
+[ext_resource type="Script" path="res://scripts/LagueIslandGenTest.gd" id="3_n0qui"]
+[ext_resource type="TileSet" uid="uid://y6gyqrjsmoq2" path="res://art/tiles/tileset.tres" id="4_3phgs"]
+
+[node name="LagueIslandGenTest" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="." node_paths=PackedStringArray("tilemap")]
+position = Vector2(907, 480)
+texture = ExtResource("1_iv0aj")
+script = ExtResource("2_v0cx8")
+speed = 600.0
+tilemap = NodePath("../TileMap")
+
+[node name="Camera2D" type="Camera2D" parent="Icon"]
+zoom = Vector2(0.75, 0.75)
+
+[node name="LagueIslandGenTest" type="Node" parent="." node_paths=PackedStringArray("tilemap")]
+script = ExtResource("3_n0qui")
+tilemap = NodePath("../TileMap")
+useRandomSeed = false
+islandMinSize = 32
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("4_3phgs")
+format = 2
+layer_0/name = "grass"
+layer_0/z_index = -2
+layer_1/name = "sand"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = -3
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "dirt"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = -4
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "grass_hill"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = false
+layer_3/y_sort_origin = 0
+layer_3/z_index = -1
+layer_3/tile_data = PackedInt32Array()
+layer_4/name = "sand_hill"
+layer_4/enabled = true
+layer_4/modulate = Color(1, 1, 1, 1)
+layer_4/y_sort_enabled = false
+layer_4/y_sort_origin = 0
+layer_4/z_index = -1
+layer_4/tile_data = PackedInt32Array()
+layer_5/name = "water"
+layer_5/enabled = true
+layer_5/modulate = Color(1, 1, 1, 1)
+layer_5/y_sort_enabled = false
+layer_5/y_sort_origin = 0
+layer_5/z_index = -10
+layer_5/tile_data = PackedInt32Array()

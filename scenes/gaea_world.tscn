@@ -18,7 +18,7 @@ type = 0
 id = ""
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_l4d8h"]
-seed = 1010318255
+seed = 2097547523
 
 [sub_resource type="Resource" id="Resource_6nw5k"]
 resource_name = "Settings"
@@ -35,7 +35,7 @@ noise = SubResource("FastNoiseLite_l4d8h")
 useRandomSeed = true
 modifiers = Array[Resource("res://addons/gaea/modifiers/2D/modifier_2d.gd")]([])
 
-[node name="World" type="Node2D"]
+[node name="GaeaWorld" type="Node2D"]
 
 [node name="IslandGenerator" type="Node" parent="."]
 script = ExtResource("1_sfu5e")
