@@ -36,11 +36,15 @@ func _ready() -> void:
 	#generate(Vector2i(islandSize, 0))
 	#updateTerrains(Vector2i(islandSize, 0))
 	
-	generate(Vector2i(islandSize, islandSize))
+	#generate(Vector2i(islandSize, islandSize))
 	#updateTerrains(Vector2i(islandSize, islandSize))
 	
 	#generate(Vector2i(0, islandSize))
 	#updateTerrains(Vector2i(0, islandSize))
+
+func _process(_delta) -> void:
+	if Input.is_key_pressed(KEY_0):
+		_ready()
 
 func resetTilemap() -> void:
 	var timeNow: int = Time.get_ticks_msec()
@@ -168,7 +172,7 @@ func distanceSqr(x: int, y: int, size: int) -> float:
 func smoothGrid(grid: Array, threshold: float = 0.) -> void:
 	for x in grid.size():
 		for y in grid.size():
-			var neighbours: int = getNeighbourCount(grid, x, y, 1., threshold)
+			var neighbours: int = getNeighbourCount(grid, x, y, 1, threshold)
 			if neighbours > 4:
 				grid[x][y] = 0.
 			elif neighbours < 4:
@@ -181,10 +185,10 @@ func blurGrid(grid: Array, blur: int, threshold: float = 0.) -> void:
 			grid[x][y] /= neighbours
 
 ## https://github.com/SebLague/Procedural-Cave-Generation/blob/master/Episode%2009/MapGenerator.cs#L325
-func getNeighbourCount(grid: Array, x: int, y: int, range: int = 1, threshold: float = 0.) -> int:
+func getNeighbourCount(grid: Array, x: int, y: int, neighbourRange: int = 1, threshold: float = 0.) -> int:
 	var neighbours: int = 0
-	for nx in range(x - range, x + range + 1):
-		for ny in range(y - range, y + range + 1):
+	for nx in range(x - neighbourRange, x + neighbourRange + 1):
+		for ny in range(y - neighbourRange, y + neighbourRange + 1):
 			if inRange(grid.size(), nx, ny):
 				if nx != x or ny != y:
 					if grid[nx][ny] <= threshold:

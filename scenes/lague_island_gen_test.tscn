@@ -20,7 +20,6 @@ zoom = Vector2(0.75, 0.75)
 [node name="LagueIslandGenTest" type="Node" parent="." node_paths=PackedStringArray("tilemap")]
 script = ExtResource("3_n0qui")
 tilemap = NodePath("../TileMap")
-useRandomSeed = false
 islandMinSize = 32
 
 [node name="TileMap" type="TileMap" parent="."]
