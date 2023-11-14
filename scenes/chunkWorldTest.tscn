@@ -1,29 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://4qlxyrxdaat"]
 
-[ext_resource type="Texture2D" uid="uid://clsg8m5n05yyr" path="res://icon.svg" id="1_iv0aj"]
-[ext_resource type="Script" path="res://test_actor.gd" id="2_v0cx8"]
-[ext_resource type="Script" path="res://scripts/LagueIslandGenTest.gd" id="3_n0qui"]
-[ext_resource type="TileSet" uid="uid://y6gyqrjsmoq2" path="res://art/tiles/tileset.tres" id="4_3phgs"]
+[ext_resource type="Script" path="res://scripts/world/ChunkManager.gd" id="1_u1rew"]
+[ext_resource type="TileSet" uid="uid://y6gyqrjsmoq2" path="res://art/tiles/tileset.tres" id="2_p8hrj"]
+[ext_resource type="Texture2D" uid="uid://clsg8m5n05yyr" path="res://icon.svg" id="3_17iek"]
+[ext_resource type="Script" path="res://test_actor.gd" id="4_4884c"]
 
-[node name="LagueIslandGenTest" type="Node2D"]
+[node name="ChunkWorldTest" type="Node2D"]
 
-[node name="Icon" type="Sprite2D" parent="." node_paths=PackedStringArray("tilemap")]
-position = Vector2(907, 480)
-texture = ExtResource("1_iv0aj")
-script = ExtResource("2_v0cx8")
-speed = 600.0
+[node name="ChunkManager" type="Node" parent="." node_paths=PackedStringArray("tilemap")]
+script = ExtResource("1_u1rew")
 tilemap = NodePath("../TileMap")
-
-[node name="Camera2D" type="Camera2D" parent="Icon"]
-zoom = Vector2(0.75, 0.75)
-
-[node name="LagueIslandGenTest" type="Node" parent="." node_paths=PackedStringArray("tilemap")]
-script = ExtResource("3_n0qui")
-tilemap = NodePath("../TileMap")
-islandMinSize = 32
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("4_3phgs")
+tile_set = ExtResource("2_p8hrj")
 format = 2
 layer_0/name = "grass"
 layer_0/z_index = -2
@@ -62,3 +51,17 @@ layer_5/y_sort_enabled = false
 layer_5/y_sort_origin = 0
 layer_5/z_index = -10
 layer_5/tile_data = PackedInt32Array()
+
+[node name="Icon" type="Sprite2D" parent="." node_paths=PackedStringArray("tilemap")]
+position = Vector2(907, 480)
+texture = ExtResource("3_17iek")
+script = ExtResource("4_4884c")
+speed = 600.0
+tilemap = NodePath("../TileMap")
+
+[node name="Camera2D" type="Camera2D" parent="Icon"]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(-110, 209)
+texture = ExtResource("3_17iek")

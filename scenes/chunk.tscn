@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://bv5uw7cwj3v7p"]
+
+[ext_resource type="Script" path="res://scripts/world/Chunk.gd" id="1_sstdt"]
+[ext_resource type="TileSet" uid="uid://y6gyqrjsmoq2" path="res://art/tiles/tileset.tres" id="2_e1x6b"]
+[ext_resource type="Script" path="res://scripts/world/IslandGeneratorSettings.gd" id="2_psv4e"]
+[ext_resource type="Script" path="res://scripts/world/IslandGenerator.gd" id="3_bib71"]
+
+[sub_resource type="Resource" id="Resource_p8law"]
+resource_name = "Settings"
+script = ExtResource("2_psv4e")
+seedOverride = "0"
+numerialSeed = false
+chance = 0.5
+fallOffOuter = 0.95
+fallOffInner = 0.05
+randomFillPercent = 0.55
+smoothLevel = 5
+shorelineBeaches = true
+shorelineSmoothLevel = 2
+shorelineThreshold = 0.15
+hillEnabled = true
+hillSmooth1 = 0.15
+hillSmooth2 = 4
+hillSmooth3 = 0.1
+
+[node name="Chunk" type="Node2D" node_paths=PackedStringArray("islandGenerator", "tilemap")]
+script = ExtResource("1_sstdt")
+islandGenerator = NodePath("IslandGenerator")
+tilemap = NodePath("TileMap")
+islandSettings = SubResource("Resource_p8law")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_e1x6b")
+format = 2
+layer_0/name = "grass"
+layer_0/z_index = -2
+layer_1/name = "sand"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = -3
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "dirt"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = -4
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "grass_hill"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = false
+layer_3/y_sort_origin = 0
+layer_3/z_index = -1
+layer_3/tile_data = PackedInt32Array()
+layer_4/name = "sand_hill"
+layer_4/enabled = true
+layer_4/modulate = Color(1, 1, 1, 1)
+layer_4/y_sort_enabled = false
+layer_4/y_sort_origin = 0
+layer_4/z_index = -1
+layer_4/tile_data = PackedInt32Array()
+layer_5/name = "water"
+layer_5/enabled = true
+layer_5/modulate = Color(1, 1, 1, 1)
+layer_5/y_sort_enabled = false
+layer_5/y_sort_origin = 0
+layer_5/z_index = -10
+layer_5/tile_data = PackedInt32Array()
+
+[node name="IslandGenerator" type="Node" parent="."]
+script = ExtResource("3_bib71")
