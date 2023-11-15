@@ -1,11 +1,10 @@
 class_name Chunk
 extends Node2D
 
-@export var islandGenerator: IslandGenerator
-@export var tilemap: TileMap
-
 const SIZE: int = 48
 
+@export var islandGenerator: IslandGenerator
+@export var tilemap: TileMap
 @export var islandSettings: IslandGeneratorSettings
 
 func generate(rng: RandomNumberGenerator) -> void:
@@ -13,8 +12,6 @@ func generate(rng: RandomNumberGenerator) -> void:
 	
 	if rng.randf() < islandSettings.chance:
 		islandGenerator.generateIsland(rng, islandSettings, tilemap)
-	
-	#updateTerrains()
 
 func generateEmptyChunk() -> void:
 	var timeNow: int = Time.get_ticks_msec()
@@ -37,17 +34,3 @@ func generateEmptyChunk() -> void:
 	var timeElapsed: int = Time.get_ticks_msec() - timeNow
 	if OS.is_debug_build():
 		print("%s: Resetting tilemap took %s seconds" % [name, float(timeElapsed) / 100])
-
-#func updateTerrains() -> void:
-#	var timeNow: int = Time.get_ticks_msec()
-#	
-#	var area: Rect2i = Rect2i(Vector2i.ZERO, Vector2i(Chunk.SIZE - 1, Chunk.SIZE - 1))
-#	BetterTerrain.update_terrain_area(tilemap, Chunk.GRASS_LAYER, area, false)
-#	BetterTerrain.update_terrain_area(tilemap, Chunk.SAND_LAYER, area, false)
-#	BetterTerrain.update_terrain_area(tilemap, Chunk.DIRT_LAYER, area, false)
-#	BetterTerrain.update_terrain_area(tilemap, Chunk.GRASS_HILL_LAYER, area, false)
-#	BetterTerrain.update_terrain_area(tilemap, Chunk.SAND_HILL_LAYER, area, false)
-#	
-#	var timeElapsed: int = Time.get_ticks_msec() - timeNow
-#	if OS.is_debug_build():
-#		print("%s: Updating terrains took %s seconds" % [name, float(timeElapsed) / 100])

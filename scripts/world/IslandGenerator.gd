@@ -13,18 +13,13 @@ func generateIsland(rng: RandomNumberGenerator, settings: IslandGeneratorSetting
 	var rngState := rng.state
 	
 	if settings.seedOverride != "0":
-		rng.seed = int(settings.seedOverride) if settings.numerialSeed else settings.seedOverride.hash()
+		rng.seed = int(settings.seedOverride) if settings.numericalSeed else settings.seedOverride.hash()
 		rng.state = 0
 	
 	var islandGrid: Array = createEmpty2DArray(0., Chunk.SIZE, Chunk.SIZE)
 	
 	## Fill & smooth grid for base island shape
 	randomFillGrid(rng, islandGrid)
-	
-	for x in Chunk.SIZE:
-		for y in Chunk.SIZE:
-			if distanceSqr(x, y, Chunk.SIZE) < settings.fallOffInner:
-				islandGrid[x][y] = 0
 	
 	for i in settings.smoothLevel:
 		smoothGrid(islandGrid)
@@ -57,7 +52,7 @@ func generateIsland(rng: RandomNumberGenerator, settings: IslandGeneratorSetting
 		spitImage.save_png("user://spat_images/chunk_%s.png" % [rngSeed])
 	
 	## Place hills
-	if settings.hillEnabled:
+	if settings.hillChance < rng.randf():
 		smoothGrid(islandGrid, settings.hillSmooth1)
 		blurGrid(islandGrid, settings.hillSmooth2)
 		smoothGrid(islandGrid, settings.hillSmooth3)
@@ -94,17 +89,14 @@ func randomFillGrid(rng: RandomNumberGenerator, grid: Array) -> void:
 	for x in grid.size():
 		for y in grid.size():
 			var fill: float = 1. if rng.randf() < settings.randomFillPercent else 0.
-			if distanceSqr(x, y, Chunk.SIZE) > settings.fallOffOuter:
-				fill = 0.
-			if distanceSqr(x, y, Chunk.SIZE) < settings.fallOffInner:
+			#var dist := distanceSqr(x, y, Chunk.SIZE)
+			#if dist > settings.fallOffOuter:
+			#	fill = 0.
+			#if dist < settings.fallOffInner:
+			#	fill = 0.
+			if settings.falloff.getValue(x, y) <= 0.:
 				fill = 0.
 			grid[x][y] = fill
-
-func distanceSqr(x: int, y: int, size: int) -> float:
-	var dx: float = 2. * float(x) / float(size) - 1.
-	var dy: float = 2. * float(y) / float(size) - 1.
-	# 0 <= dx <= 1 and 0 <= dy <= 1
-	return dx * dx + dy * dy
 
 ## https://github.com/SebLague/Procedural-Cave-Generation/blob/master/Episode%2009/MapGenerator.cs#L311
 func smoothGrid(grid: Array, threshold: float = 0.) -> void:
