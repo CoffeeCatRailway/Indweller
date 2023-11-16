@@ -6,17 +6,17 @@ extends Resource
 
 @export var visual: Texture2D
 
-enum Shape {SQUARE, CIRCLE, TRIANGLE}
+enum Shape {SQUARE, CIRCLE, TRIANGLE, PENTAGON}
 @export var shape: Shape = Shape.CIRCLE:
 	set(value):
 		shape = value
 		_generate()
-@export var donut: bool = true:
-	set(value):
-		donut = value
-		_generate()
 
-@export_range(0., 1., .01) var edgeStart: float = .05:
+@export_range(0., 1., .01) var radius: float = .5:
+	set(value):
+		radius = value
+		_generate()
+@export_range(0., 1., .01) var edgeStart: float = 0.:
 	set(value):
 		edgeStart = value
 		_generate()
@@ -29,6 +29,16 @@ enum Shape {SQUARE, CIRCLE, TRIANGLE}
 	set(value):
 		size = abs(value)
 		_generate()
+		
+@export var annular: bool = false:
+	set(value):
+		annular = value
+		notify_property_list_changed()
+		_generate()
+var annularRadius: float = .25:
+	set(value):
+		annularRadius = value
+		_generate()
 
 var map: Dictionary
 
@@ -38,7 +48,7 @@ func _generate() -> void:
 	
 	for x in size.x:
 		for y in size.y:
-			var value: float
+			var value: float = 0.
 			
 			var dx: float = 2. * float(x) / float(size.x) - 1.
 			var dy: float = 2. * float(y) / float(size.y) - 1.
@@ -46,17 +56,23 @@ func _generate() -> void:
 			
 			match shape:
 				Shape.SQUARE:
-					value = maxf(absf(dx), absf(dy))
+					value = box(dx, dy, radius)
 				Shape.CIRCLE:
-					value = (dx * dx + dy * dy) / 2.
+					value = circle(dx, dy, radius)
+				Shape.TRIANGLE:
+					value = equilateralTriangle(dx, dy, radius)
+				Shape.PENTAGON:
+					value = pentagon(dx, dy, radius)
+			
+			if annular:
+				value = abs(value) - annularRadius
 			
 			if value < edgeStart:
-				value = 0. if donut else 1.
+				value = 1.
 			elif value > edgeEnd:
 				value = 0.
 			else:
 				value = smoothstep(1., 0., inverse_lerp(edgeStart, edgeEnd, value))
-				#value = smoothstep(0., 1., inverse_lerp(edgeStart, edgeEnd, value))
 			
 			map[Vector2i(x, y)] = value
 			
@@ -65,12 +81,61 @@ func _generate() -> void:
 			image.set_pixel(x, y, color)
 	
 	visual = ImageTexture.create_from_image(image)
+
+func length(x: float, y: float) -> float:
+	return x * x + y * y
+
+func box(x: float, y: float, r: float) -> float:
+	x = absf(x) - r
+	y = absf(y) - r
+	return length(maxf(x, 0.), maxf(y, 0.)) + minf(maxf(x, y), 0.)
+
+func circle(x: float, y: float, r: float) -> float:
+	return length(x, y) - r
+
+func equilateralTriangle(x: float, y: float, r: float) -> float:
+	const k := sqrt(3.)
+	x = absf(x) - r
+	y = y + r / k
+	if x + k * y > 0.:
+		var ox := x
+		x = (x - k * y) / 2.
+		y = (-k * ox - y) / 2.
+	x -= clamp(x, -2. * r, 0.)
+	return -length(x, y) * sign(y)
+
+func pentagon(x: float, y: float, r: float) -> float:
+	const k := Vector3(.809016994, .587785252, .726542528)
+	const k1 := Vector2(-k.x, k.y)
+	const k2 := Vector2(k.x, k.y)
 	
+	x = absf(x)
+	var p := Vector2(x, y)
+	p -= 2. * min(k1.dot(p), 0.) * k1
+	p -= 2. * min(k2.dot(p), 0.) * k2
+	p -= Vector2(clamp(p.x, -r * k.z, r * k.z), r)
+	
+	return p.length() * sign(p.y)
+
 func getValue(x: int, y: int) -> float:
 	return getValuev(Vector2i(x, y))
 
 func getValuev(pos: Vector2i) -> float:
 	return map[pos] if map.has(pos) else 0.
+
+func _get_property_list() -> Array[Dictionary]:
+	var properties: Array[Dictionary] = []
+	
+	var usage = PROPERTY_USAGE_DEFAULT if annular else PROPERTY_USAGE_NO_EDITOR
+	
+	properties.append({
+		"name": "annularRadius",
+		"usage": usage,
+		"type": TYPE_FLOAT,
+		"hint": PROPERTY_HINT_RANGE,
+		"hint_string": "0.,1.,.01"
+	})
+	return properties
 
 func _init() -> void:
 	_generate()
